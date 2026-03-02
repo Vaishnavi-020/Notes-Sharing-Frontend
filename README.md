@@ -1,16 +1,152 @@
-# React + Vite
+# 📚 NoteShare Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern React-based frontend for the **NoteShare API**, enabling users to upload, manage, and securely access shared notes. This project focuses on clean UI, smooth user experience, and proper integration with a FastAPI backend.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Project Overview
 
-## React Compiler
+NoteShare Frontend is the client-side application of the Note Sharing platform. It allows authenticated users to:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* 🔐 Register and log in
+* 📤 Upload notes
+* 📂 View their uploaded notes
+* 📥 Download/open notes
+* 🗑️ Delete notes
+* 👤 Manage their session securely
 
-## Expanding the ESLint configuration
+The frontend communicates with the NoteShare FastAPI backend using REST APIs and JWT authentication.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🧠 Tech Stack
+
+* **React (Vite)**
+* **JavaScript (ES6+)**
+* **Tailwind CSS**
+* **Axios / Fetch API**
+* **React Router**
+* **JWT Authentication**
+
+---
+
+## ✨ Features Implemented
+
+* ✅ User authentication (login/signup)
+* ✅ Search notes
+* ✅ Protected routes
+* ✅ Upload notes functionality
+* ✅ Notes listing dashboard
+* ✅ Open/download notes
+* ✅ Edit notes
+* ✅ Delete notes
+* ✅ Responsive UI
+* ✅ Loading and error states
+* ✅ Clean component structure
+
+---
+
+## 🔌 Backend Integration
+
+This frontend is designed to work with the **NoteShare FastAPI Backend**.
+
+**Backend responsibilities:**
+
+* JWT authentication
+* File storage & retrieval
+* User authorization
+* Note ownership validation
+
+> ⚠️ Make sure the backend server is running before using the frontend.
+
+---
+
+## ⚙️ Getting Started
+
+### 1️⃣ Clone the repository
+
+```bash
+git clone <your-frontend-repo-url>
+cd note-share-frontend
+```
+
+### 2️⃣ Install dependencies
+
+```bash
+npm install
+```
+
+### 3️⃣ Configure environment variables
+
+Create a `.env` file:
+
+```
+VITE_API_BASE_URL=http://localhost:8000
+```
+
+---
+
+### 4️⃣ Run the development server
+
+```bash
+npm run dev
+```
+
+App will run at:
+
+```
+http://localhost:5173
+```
+
+---
+
+## 🔐 Authentication Flow
+
+1. User logs in → receives JWT
+2. Token stored in localStorage
+3. Token attached to protected API requests
+4. Backend validates ownership before file access
+
+---
+
+## 🎯 Future Improvements
+
+* 🌙 Dark mode
+* 🧪 Unit & integration tests
+
+---
+
+## 📸 Screenshots
+
+---
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome.
+
+---
+
+## 📜 License
+
+This project is for educational and portfolio purposes.
+
+---
+
+## ⭐ Author
+
+**Vaishnavi Sinha**
+BTech CSE 
+
+---
+
+### 💡 Recruiter Note
+
+This project demonstrates:
+
+* Full-stack integration skills
+* JWT authentication handling
+* REST API consumption
+* Professional React project structure
+* Clean Git workflow
+
+---
