@@ -1,0 +1,118 @@
+import { useEffect,useState } from "react"
+import api from "../api/axios"
+import NoteCard from "../components/NoteCard"
+
+const PublicNotes=()=>{
+    const [notes,setNotes]=useState([])
+    const[loading,setLoading]=useState(false)
+    const[query,setQuery]=useState("")
+    const[page,setPage]=useState(1)
+    const[totalPages,setTotalPages]=useState(1)
+
+    const LIMIT=10
+
+    const fetchPublicNotes=async()=>{
+        try{
+            setLoading(true);
+            const res=await api.get("/notes/public_notes",{params:{page,limit:LIMIT}})
+            setNotes(res.data.items)
+            setTotalPages(res.data.pages)
+        }catch(err){
+            console.error("Error fetching public notes",err)
+        }finally{
+            setLoading(false)
+        }
+    }
+    const searchNotes=async()=>{
+        try{
+            setLoading(true)
+            setPage(1)
+
+            const res=await api.get("/notes/search",{params:{q:query,page:1,limit:LIMIT},})
+
+            setNotes(res.data.items)
+            setTotalPages(res.data.pages)
+        } catch(err){
+            console.error("Search Failed",err)
+        }finally{
+            setLoading(false)
+        }
+    }
+    useEffect(()=>{
+        if(query.trim()){
+            searchNotes()
+        }else{
+            fetchPublicNotes()
+        }
+    }
+    ,[page])
+
+    useEffect(()=>{
+        fetchPublicNotes()
+    }
+,[])
+    return(
+        <>
+    <div className="min-h-screen flex flex-col p-6 max-w-6xl mx-auto">
+      <div className="flex-grow">
+      <h1 className="text-2xl font-bold mb-4">Public Notes</h1>
+
+      {/* 🔍 Search */}
+      <div className="flex gap-2 mb-6">
+        <input
+          type="text"
+          placeholder="Search notes..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          className="border p-2 rounded w-full"
+        />
+        <button
+          onClick={searchNotes}
+          className="px-4 py-2 bg-green-600 text-white rounded"
+        >
+          Search
+        </button>
+      </div>
+
+      {/* ⏳ Loading */}
+      {loading && <p>Loading notes...</p>}
+
+      {/* ❌ Empty */}
+      {!loading && notes.length === 0 && <p>No notes found.</p>}
+
+      {/* 📚 Notes grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {notes.map((note) => (
+          <NoteCard key={note.id} note={note} />
+        ))}
+      </div>
+      </div>
+
+      {/* 📄 Pagination */}
+      <div className="flex justify-center gap-3 mt-6">
+        <button
+          disabled={page === 1}
+          onClick={() => setPage((p) => p - 1)}
+          className="px-3 py-1 border rounded disabled:opacity-50"
+        >
+          Prev
+        </button>
+
+        <span>
+          Page {page} of {totalPages}
+        </span>
+
+        <button
+          disabled={page === totalPages}
+          onClick={() => setPage((p) => p + 1)}
+          className="px-3 py-1 border rounded disabled:opacity-50"
+        >
+          Next
+        </button>
+      </div>
+    </div>
+        </>
+    )
+}
+
+export default PublicNotes;
