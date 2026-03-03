@@ -18,6 +18,13 @@ const NoteCard = ({note}) => {
             >
                 Open / Download
             </button>
+            <p className="text-sm text-gray-500 mt-4">
+                Created at: {new Date(note.created_at).toLocaleDateString(undefined, {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                })}
+            </p>
         </div>
     )
 }
