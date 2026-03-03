@@ -16,7 +16,7 @@ const Signup = () => {
     e.preventDefault()
     try{
       const data=await signup(formData)
-      navigate('/dashboard')
+      navigate('/my_notes')
     }catch(err){
       console.log(err)
       alert("Something went wrong")

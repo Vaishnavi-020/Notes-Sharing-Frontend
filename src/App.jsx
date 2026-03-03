@@ -1,25 +1,35 @@
 import { useState } from 'react'
 import { Route,Routes } from 'react-router-dom'
+import { useAuth } from './context/AuthContext'
 import Sidebar from './components/Sidebar'
 import Navbar from './components/Navbar'
 import PublicNotes from './pages/PublicNotes'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Dashbaord from './pages/Dashbaord'
+import MyNotes from './pages/MyNotes'
+
 function App() {
 
   const [isOpen,setIsOpen]=useState(false)
-
+  const {isAuthenticated}=useAuth()
   return (
     <>
-    <Navbar />
-      {/* <Sidebar isOpen={isOpen} setIsOpen={setIsOpen}/> */}
-      <Routes>
-        <Route path="/" element={<PublicNotes />} />
-        <Route path="/Signup" element={<Signup />} />
-        <Route path="/Login" element={<Login />} />
-        <Route path="/Dashboard" element={<Dashbaord />} />
-      </Routes>
+    <Navbar setIsOpen={setIsOpen} />
+      
+        <div className='flex'>
+          {isAuthenticated && <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />}
+          <div className='flex-1 p-4'>
+            <Routes>
+              <Route path="/" element={<PublicNotes />} />
+            <Route path="/Signup" element={<Signup />} />
+            <Route path="/Login" element={<Login />} />
+            <Route path="/Dashboard" element={<Dashbaord />} />
+            <Route path="/My_Notes" element={<MyNotes />} />
+            </Routes>
+          </div>
+        </div>
+        
     </>
   )
 }

@@ -16,7 +16,7 @@ const handleSubmit=async (e)=>{
   e.preventDefault()
   try{
     const data=await login(formData)
-    navigate("/dashboard")
+    navigate("/my_notes")
   }catch(err){
     console.log(err)
     alert("Login Failed")

@@ -4,6 +4,8 @@ import { loginUser,registerUser } from "../api/authApi";
 const AuthContext = createContext()
 
 export const AuthProvider = ({children}) => {
+
+    const [isAuthenticated,setIsAuthenticated]=useState(!!localStorage.getItem("token"))
     const[user,setUser]=useState(null)
     const [loading,setLoading]=useState(true)
 
@@ -24,6 +26,10 @@ export const AuthProvider = ({children}) => {
 
     const signup=async(formData)=>{
         const response=await registerUser(formData)
+        if (response.access_token){
+            localStorage.setItem("token",response.access_token)
+            setIsAuthenticated(true)
+        }
         return response
     }
 
@@ -31,6 +37,7 @@ export const AuthProvider = ({children}) => {
         const data=await loginUser(formData)
 
         localStorage.setItem("access_token",data.access_token);
+        setIsAuthenticated(true)
         setUser(data.user)
 
         return data
@@ -38,11 +45,12 @@ export const AuthProvider = ({children}) => {
 
     const logout = () => {
         localStorage.removeItem("access_token");
+        setIsAuthenticated(false)
         setUser(null)
     }
 
     return(
-        <AuthContext.Provider value={{user,loading,signup,login,logout}}>
+        <AuthContext.Provider value={{user,loading,isAuthenticated,signup,login,logout}}>
             {children}
         </AuthContext.Provider>
     )
