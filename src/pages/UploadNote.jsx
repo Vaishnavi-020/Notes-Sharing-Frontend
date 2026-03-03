@@ -77,7 +77,7 @@ const UploadNote=()=>{
         }
     }
     return (
-        <div className="max-w-xl mx-auto mt-10 p-6 bg-white rounded-xl shadow">
+        <div className="max-w-xl mx-auto mt-10 p-6 bg-white rounded-xl shadow mb-20">
             <h2 className="text-2xl font-bold mb-4">Upload Note</h2>
             <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
                 <input 

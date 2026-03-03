@@ -15,6 +15,7 @@ function App() {
 
   const [isOpen,setIsOpen]=useState(false)
   const {isAuthenticated}=useAuth()
+
   return (
     <>
     <Navbar setIsOpen={setIsOpen} />
