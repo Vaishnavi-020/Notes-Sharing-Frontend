@@ -46,6 +46,7 @@ const UploadNote=()=>{
             formData.append("title",title)
             formData.append("description",description)
             formData.append("subject",subject)
+            formData.append("is_private",isPrivate)
             formData.append("file",file)
 
             const token=localStorage.getItem("access_token")
@@ -102,6 +103,26 @@ const UploadNote=()=>{
                 onChange={(e)=>setSubject(e.target.value)}
                 className="border p-2 rounded"
                 required/>
+
+                <div className="flex items-center justify-between border p-3 rounded">
+                <span className="font-medium">
+                    {isPrivate ? "🔒 Private Note" : "🌍 Public Note"}
+                </span>
+
+                <button
+                    type="button"
+                    onClick={() => setIsPrivate(prev => !prev)}
+                    className={`w-12 h-6 flex items-center rounded-full p-1 transition ${
+                    isPrivate ? "bg-blue-500" : "bg-gray-300"
+                    }`}
+                >
+                    <div
+                    className={`bg-white w-4 h-4 rounded-full shadow-md transform transition ${
+                        isPrivate ? "translate-x-6" : "translate-x-0"
+                    }`}
+                    />
+                </button>
+                </div>
 
                 <input 
                 type="file"
