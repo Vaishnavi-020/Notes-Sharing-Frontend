@@ -5,7 +5,7 @@ const AuthContext = createContext()
 
 export const AuthProvider = ({children}) => {
 
-    const [isAuthenticated,setIsAuthenticated]=useState(!!localStorage.getItem("token"))
+    const [isAuthenticated,setIsAuthenticated]=useState(!!localStorage.getItem("access_token"))
     const[user,setUser]=useState(null)
     const [loading,setLoading]=useState(true)
 
@@ -37,6 +37,7 @@ export const AuthProvider = ({children}) => {
         const data=await loginUser(formData)
 
         localStorage.setItem("access_token",data.access_token);
+        localStorage.setItem("user", JSON.stringify(data.user)); 
         setIsAuthenticated(true)
         setUser(data.user)
 

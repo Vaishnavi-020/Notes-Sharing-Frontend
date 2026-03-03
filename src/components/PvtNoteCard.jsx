@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-const PvtNoteCard=({note,onDelete})=>{
+const PvtNoteCard=({note,onDelete,onEdit,index})=>{
     const handleOpen=()=>{
         window.open(
              `http://127.0.0.1:8000/notes/${note.id}/download`,
@@ -20,10 +20,17 @@ const PvtNoteCard=({note,onDelete})=>{
             >
                 Open / Download
             </button>
+             <p className="text-sm text-gray-500 mt-4">
+                Created at: {new Date(note.created_at).toLocaleDateString(undefined, {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                })}
+            </p>
         <div className="flex justify-between mt-8 text-gray-500 font-semibold text-sm ">
             <div className="border border-gray-500 rounded  ml-10 px-2 py-1 hover:bg-gray-700 hover:text-white hover:cursor-pointer">
             <i className="fa-regular fa-pen-to-square mr-2"></i>
-            <button>Edit</button>
+            <button onClick={()=>onEdit(note,index)}>Edit</button>
             </div>
             <button className="border border-gray-500 rounded mr-10 px-2 py-1 hover:bg-gray-700 hover:text-white hover:cursor-pointer" onClick={()=>onDelete(note.id)}>Delete</button>
         </div>
