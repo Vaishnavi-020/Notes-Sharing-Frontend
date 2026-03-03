@@ -9,6 +9,7 @@ import Signup from './pages/Signup'
 import Dashbaord from './pages/Dashbaord'
 import MyNotes from './pages/MyNotes'
 import UploadNote from './pages/UploadNote'
+import Footer from './components/Footer'
 
 function App() {
 
@@ -31,7 +32,7 @@ function App() {
             </Routes>
           </div>
         </div>
-        
+        <Footer />
     </>
   )
 }
