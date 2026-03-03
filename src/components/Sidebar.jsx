@@ -11,8 +11,8 @@ return (
         </div>
         <nav className="p-4 space-y-3">
             <Link className="block p-2 rounded hover:bg-gradient-to-br from-sky-100 to-indigo-500 hover:text-blue-800" to="/">Home</Link>
-            <Link className="block p-2 rounded hover:bg-gradient-to-br from-sky-100 to-indigo-500 hover:text-blue-800" to="/dashboard">Dashboard</Link>
-            <Link className="block p-2 rounded hover:bg-gradient-to-br from-sky-100 to-indigo-500 hover:text-blue-800" to="#">Settings</Link>
+            <Link className="block p-2 rounded hover:bg-gradient-to-br from-sky-100 to-indigo-500 hover:text-blue-800" to="/My_Notes" >My Notes</Link>
+            <Link className="block p-2 rounded hover:bg-gradient-to-br from-sky-100 to-indigo-500 hover:text-blue-800" to="/notes_upload">Upload Notes</Link>
         </nav>  
         <div className="mt-auto p-4 border-t border-slate-700">
             <div className="flex items-center justify-between">
