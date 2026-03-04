@@ -40,14 +40,15 @@ const handleSubmit=async (e)=>{
         placeholder="Email"
         className="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
         onChange={(e)=>setFormData({...formData,email:e.target.value})}
-      />
+        required />
 
       <input
         type="password"
         placeholder="Password"
         className="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
         onChange={(e)=>setFormData({...formData,password:e.target.value})}
-      />
+      required />
+      
   <div className="flex items-center justify-center gap-2 w-full bg-gradient-to-br from-blue-300 to-purple-600 hover:cursor-pointer text-neutral-100 py-2 rounded-lg transition mt-2">
     <i className="fa-solid fa-arrow-right-to-bracket text-lg font-semibold"></i>
     <button className="text-lg font-semibold hover:cursor-pointer" type="submit">
