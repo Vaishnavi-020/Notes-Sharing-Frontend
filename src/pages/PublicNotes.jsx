@@ -1,8 +1,12 @@
 import { useEffect,useState } from "react"
 import api from "../api/axios"
 import NoteCard from "../components/NoteCard"
+import { useAuth } from "../context/AuthContext"
 
 const PublicNotes=()=>{
+
+    const {user,isAuthenticated}=useAuth()
+
     const [notes,setNotes]=useState([])
     const[loading,setLoading]=useState(false)
     const[query,setQuery]=useState("")
@@ -55,7 +59,13 @@ const PublicNotes=()=>{
         <>
     <div className="min-h-screen flex flex-col p-6 max-w-6xl mx-auto">
       <div className="flex-grow">
-      <h1 className="text-2xl font-bold mb-4">Public Notes</h1>
+      {isAuthenticated && user && (
+        <h1 className="font-bold text-3xl mb-10">
+          Hello! 👋🏿 {user.name}
+          </h1>)
+        }
+      
+      <h2 className="text-xl font-semibold mb-4">Public Notes</h2>
 
       {/* 🔍 Search */}
       <div className="flex gap-2 mb-6">

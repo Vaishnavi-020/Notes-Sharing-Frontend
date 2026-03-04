@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom"
+import { useAuth } from "../context/AuthContext"
 
 const Sidebar = ({isOpen,setIsOpen}) => {
+    const {user}=useAuth()
 return (
     <>
     {isOpen?(<div className="fixed inset-0 bg-black/20 z-40"
@@ -19,7 +21,7 @@ return (
                 <div className="flex items-center gap-3">
                     <i className="fa-solid fa-circle-user"></i>
                     <div>
-                        <p className="text-sm font-semibold">Vaishnavi Sinha</p>
+                        <p className="text-sm font-semibold">{user.name}</p>
                         <p className="text-xs text-gray-500 hover:underline cursor-pointer">View Profile</p>
                     </div>
                 </div>
