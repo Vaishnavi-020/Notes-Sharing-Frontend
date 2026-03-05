@@ -15,9 +15,9 @@ const Navbar = ({setIsOpen}) => {
           </button>
         )}
 
-        <h3 className="text-xl font-bold hover:cursor-pointer">
+        <Link to="/" className="text-xl font-bold hover:cursor-pointer">
           Share Notes
-        </h3>
+        </Link>
       </div>
             {!isAuthenticated?(
                 <>

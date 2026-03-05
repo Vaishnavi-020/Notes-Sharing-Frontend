@@ -16,6 +16,7 @@ const Signup = () => {
     e.preventDefault()
     try{
       const data=await signup(formData)
+      console.log(data)
       navigate('/my_notes')
     }catch(err){
       console.log(err)

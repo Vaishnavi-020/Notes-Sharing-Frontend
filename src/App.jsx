@@ -22,7 +22,7 @@ function App() {
       
         <div className='flex'>
           {isAuthenticated && <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />}
-          <div className='flex-1 p-4'>
+          <div className='flex-1'>
             <Routes>
               <Route path="/" element={<PublicNotes />} />
             <Route path="/Signup" element={<Signup />} />

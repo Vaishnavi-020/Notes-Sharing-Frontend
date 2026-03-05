@@ -27,8 +27,9 @@ export const AuthProvider = ({children}) => {
     const signup=async(formData)=>{
         const response=await registerUser(formData)
         if (response.access_token){
-            localStorage.setItem("token",response.access_token)
+            localStorage.setItem("access_token",response.access_token)
             setIsAuthenticated(true)
+            setUser(response.user)
         }
         return response
     }

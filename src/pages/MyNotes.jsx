@@ -16,38 +16,13 @@ const MyNotes=()=>{
     const LIMIT=10
 
     const onDelete=async(id)=>{
-        try{
-            await api.delete(`/notes/${id}`)
-            setNotes((prev)=>prev.filter((note)=>note.id!==id))
-        }catch(err){
-            console.error(err)
+            try{
+                await api.delete(`/notes/${id}`)
+                setNotes((prev)=>prev.filter((note)=>note.id!==id))
+            }catch(err){
+                console.error(err)
+            }
         }
-    }
-
-    const [showForm,setShowForm]=useState(false)
-    const[isEditing,setIsEditing]=useState(false)
-    const[editIndex,setEditIndex]=useState(null)
-    const[formData,setFormData]=useState({})
-    const onEdit=(note,index)=>{
-        setIsEditing(true)
-        setEditIndex(index)
-        setFormData(note)
-        setShowForm(true)
-    }
-
-    const handleUpdate=async(id,updateData)=>{
-        try{
-            await api.put(`/notes/${id}`,updateData)
-            setNotes((prev)=>prev.map((note)=>
-            note.id===id?{...note,...updateData}:note))
-
-            setIsEditing(false)
-            setEditIndex(null)
-            setShowForm(false)
-        }catch(err){
-            console.error(err)
-        }
-    }
 
     useEffect(()=>{
         if (!authLoading && !user){
@@ -81,8 +56,8 @@ const MyNotes=()=>{
                 {loading && <p>Loading Notes...</p>}
             {!loading && notes.length===0 && <p>No notes found!</p>}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {notes.map((note,index)=>(
-                    <PvtNoteCard key={note.id} note={note} onDelete={onDelete} onEdit={onEdit} index={index} />
+                {notes.map((note)=>(
+                    <PvtNoteCard key={note.id} note={note} onDelete={onDelete} />
                 ))}
             </div>
             </div>
