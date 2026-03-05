@@ -15,46 +15,42 @@ const PublicNotes=()=>{
 
     const LIMIT=10
 
-    const fetchPublicNotes=async()=>{
-        try{
-            setLoading(true);
-            const res=await api.get("/notes/public_notes",{params:{page,limit:LIMIT}})
-            setNotes(res.data.items)
-            setTotalPages(res.data.pages)
-        }catch(err){
-            console.error("Error fetching public notes",err)
-        }finally{
-            setLoading(false)
-        }
-    }
-    const searchNotes=async()=>{
-        try{
-            setLoading(true)
-            setPage(1)
+  const fetchPublicNotes=async()=>{
+    try{
+      setLoading(true)
+      let res
+      if(query.trim()!==""){
+        res=await api.get("notes/search",{
+          params:{q:query,page,limit:LIMIT}
+        })
+      } else{
+        res=await api.get("notes/public_notes",
+          {params:{page,limit:LIMIT}}
+        )
+      }
+      setNotes(res.data.items)
+      setTotalPages(res.data.total_pages)
+    }catch(err){
+        console.error("Error fetching notes",err)
+      }finally{
+        setLoading(false)
+      }
+  }
 
-            const res=await api.get("/notes/search",{params:{q:query,page:1,limit:LIMIT},})
-
-            setNotes(res.data.items)
-            setTotalPages(res.data.pages)
-        } catch(err){
-            console.error("Search Failed",err)
-        }finally{
-            setLoading(false)
-        }
-    }
     useEffect(()=>{
-        if(query.trim()){
-            searchNotes()
-        }else{
-            fetchPublicNotes()
-        }
+      fetchPublicNotes()
     }
     ,[page])
 
     useEffect(()=>{
         fetchPublicNotes()
     }
-,[])
+  ,[])
+
+  const searchNotes=()=>{
+        setPage(1)
+        fetchPublicNotes()
+  }
     return(
         <>
     <div className="min-h-screen flex flex-col p-6 max-w-6xl mx-auto">

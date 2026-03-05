@@ -8,6 +8,7 @@ const MyNotes=()=>{
     const[loading,setLoading]=useState(false)
     const [notes,setNotes]=useState([])
     const [page,setPage]=useState(1)
+    const[totalPages,setTotalPages]=useState(1)
     const[query,setQuery]=useState("")
 
     const {user,loading:authLoading}=useAuth()
@@ -30,26 +31,23 @@ const MyNotes=()=>{
         }
     },[user,authLoading])
 
-    const fetchMyNotes=async()=>{
+    const fetchNotes=async()=>{
         try{
             setLoading(true)
-            const res=await api.get("/notes/my_notes",{params:{page,limit:LIMIT}})
-            setNotes(res.data.items)
+            let res
+            if(query.trim()!==""){
+                res=await api.get("/notes/search",{
+                    params:{q:query,page,limit:LIMIT}
+                }) 
+            }else{
+                    res=await api.get("/notes/my_notes",{
+                        params:{page,limit:LIMIT}
+                    })
+                }
+                setNotes(res.data.items)
+                setTotalPages(res.data.total_pages)
         }catch(err){
-            console.error("Error fetching private notes",err)
-        }finally{
-            setLoading(false)
-        }
-    }
-
-    const searchNotes=async()=>{
-        try{
-            setLoading(true)
-            setPage(1)
-            const res=await api.get("/notes/search",{params:{q:query,page:1,limit:LIMIT}})
-            setNotes(res.data.items)
-        }catch(err){
-            console.error("Search failed",err)
+            console.error("Error fetching notes",err)
         }finally{
             setLoading(false)
         }
@@ -57,9 +55,15 @@ const MyNotes=()=>{
 
     useEffect(()=>{
         if(user){
-            fetchMyNotes()
+            fetchNotes()
         }
     },[page,user])
+
+    const searchNotes=()=>{
+        setPage(1)
+        fetchNotes()
+    }
+
     return(
         <>
         <div className="min-h-screen flex flex-col p-6 max-w-6xl mx-auto">
@@ -91,14 +95,15 @@ const MyNotes=()=>{
             <div className="flex justify-center gap-3 mt-6">
                 <button 
                 disabled={page===1}
-                onClick={()=>setPage((p)=p-1)}
-                className="px-3 py-1 border rounded disabled-opacity:50">
+                onClick={()=>setPage((p)=> p-1)}
+                className="px-3 py-1 border rounded disabled:opacity-50">
                     Prev
                 </button>
-                <span>{page}</span>
+                <span>{page} of {totalPages}</span>
                 <button
-                onClick={()=>setPage((p)=p+1)}
-                className="px-3 py-1 border rounded">
+                disabled={page===totalPages}
+                onClick={()=>setPage((p)=> p+1)}
+                className="px-3 py-1 border rounded disabled:opacity-50">
                     Next
                 </button>
             </div>
