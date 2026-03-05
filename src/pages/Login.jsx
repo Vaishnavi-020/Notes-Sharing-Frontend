@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { getErrorMessage } from "../utils/errorHandler";
 
 const Login = () => {
 const {login}=useAuth()
@@ -11,15 +12,20 @@ const[formData,setFormData]=useState({
   email:"",
   password:"",
 })
+const[message,setMessage]=useState("")
 
 const handleSubmit=async (e)=>{
   e.preventDefault()
   try{
-    const data=await login(formData)
-    navigate("/my_notes")
+    await login(formData)
+    setMessage("✅ Login successful")
+
+    setTimeout(()=>{
+      navigate("/my_notes")
+    },800)
   }catch(err){
-    console.log(err)
-    alert("Login Failed")
+    const message=getErrorMessage(err)
+    setMessage(`❌ ${message}`)
   }
 }
 
@@ -60,6 +66,11 @@ const handleSubmit=async (e)=>{
             <h5 className="font-semibold">Don't have an account?</h5>
             <Link to="/Signup" className="font-semibold hover:underline hover:cursor-pointer hover:text-purple-700 mt-1">Signup here</Link>
       </div>
+         {message && (
+                    <p className="text-center text-sm text-gray-600 mt-2">
+                        {message}
+                    </p>
+                )}
     </form>
   </div>
 </div>

@@ -1,6 +1,7 @@
 import { Link, useNavigate, useSearchParams } from "react-router-dom"
 import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
+import { getErrorMessage } from "../utils/errorHandler";
 
 const Signup = () => {
   const {signup}=useAuth()
@@ -11,16 +12,19 @@ const Signup = () => {
     email:"",
     password:"",
   })
+  const [message,setMessage]=useState("")
 
   const handleSubmit=async(e)=>{
     e.preventDefault()
     try{
-      const data=await signup(formData)
-      console.log(data)
-      navigate('/my_notes')
+      await signup(formData)
+      setMessage("✅ User created successfully")
+      setTimeout(()=>{
+        navigate('/my_notes')
+      },800)
     }catch(err){
-      console.log(err)
-      alert("Something went wrong")
+      const message=getErrorMessage(err)
+      setMessage(`❌${message}`)
     }
   }
 
@@ -68,6 +72,11 @@ const Signup = () => {
             <h5 className="font-semibold">Already have an account?</h5>
             <Link to="/Login" className="font-semibold hover:underline hover:cursor-pointer hover:text-purple-700 mt-1">Login here</Link>
       </div>
+         {message && (
+        <p className="text-center text-sm text-gray-600 mt-2">
+          {message}
+        </p>
+      )}
     </form>
   </div>
 </div>

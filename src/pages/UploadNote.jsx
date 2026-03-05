@@ -59,8 +59,9 @@ const UploadNote=()=>{
                 },
                 body: formData,
             });
+            const data=await res.json()
             if(!res.ok){
-                throw new Error("Upload Failed")
+                throw new Error(data.detail || "Upload Failed")
             }
             setMessage("✅ Note uploaded successfully")
             setTimeout(() => {
@@ -71,7 +72,7 @@ const UploadNote=()=>{
             setSubject("")
             setFile(null)
         }catch(err){
-            setMessage("❌ Failed to uplaod file")
+            setMessage(`❌ ${err.message}`)
         }finally{
             setLoading(false)
         }
@@ -136,7 +137,7 @@ const UploadNote=()=>{
                     {loading?"Uploading...":"Upload Note"}
                 </button>
                 {message && (
-                    <p className="text-center text-sm mt-2">
+                    <p className="text-center text-sm text-gray-600 mt-2">
                         {message}
                     </p>
                 )}

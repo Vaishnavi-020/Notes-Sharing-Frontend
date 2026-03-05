@@ -15,18 +15,6 @@ const MyNotes=()=>{
 
     const LIMIT=10
 
-    // const fetchPvtNotes=async()=>{
-    //     try{
-    //         setLoading(true)
-    //         const res=await api.get("/notes/my_notes",{params:{page,limit:LIMIT}})
-    //         setNotes(res.data.items)
-    //     }catch(err){
-    //         console.error("Error fetching pvt notes",err)
-    //     }finally{
-    //         setLoading(false)
-    //     }
-    // }
-
     const onDelete=async(id)=>{
             try{
                 await api.delete(`/notes/${id}`)
