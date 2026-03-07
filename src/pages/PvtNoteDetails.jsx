@@ -4,12 +4,14 @@ import DeleteModal from "../components/DeleteModal";
 import { useParams } from "react-router-dom";
 import api from "../api/axios";
 import { useNavigate } from "react-router-dom";
+import UpdateNote from "./UpdateNote";
 
 const PvtNoteDetails=()=>{
     const {id}=useParams()
     const [note,setNote]=useState(null)
     const [showAI,setShowAI]=useState(false)
     const [showConfirm,setShowConfirm]=useState(false)
+    const [showForm,setShowForm]=useState(false)
 
     const navigate=useNavigate()
 
@@ -33,6 +35,14 @@ const PvtNoteDetails=()=>{
     },[id])
 
     if (!note) return <div className="min-h-screen">Loading...</div>
+
+    const handleUpdate=()=>{
+        setShowForm(true)
+    }
+
+    const handleEdited=(updateNote)=>{
+        setNote(updateNote)
+    }
 
     const handleDelete=async ()=>{
         try{
@@ -69,7 +79,13 @@ const PvtNoteDetails=()=>{
         >
             Open / Download
         </button>
+
         <div className="flex justify-between items-center mt-5 text-gray-500 font-semibold text-sm px-5">
+            <button onClick={handleUpdate} className="bg-yellow-600 text-white rounded p-3 hover:bg-yellow-700 hover:cursor-pointer">
+                <i className="fa-solid fa-pen-to-square mr-1"></i>
+                <span>Edit Note</span>
+            </button>
+
             <button className="bg-green-600 text-white rounded p-3 hover:bg-green-700 hover:cursor-pointer"
             onClick={()=>setShowAI(prev=>!prev)}>
             <i className="fa-solid fa-robot mr-2"></i>
@@ -80,6 +96,14 @@ const PvtNoteDetails=()=>{
             onClick={()=>setShowConfirm(true)}>Delete Note</button>
 
         </div>
+
+        {showForm && (
+            <UpdateNote note={note} 
+            onClose={()=>setShowForm(false)}
+            onEdited={handleEdited} />
+        )}
+
+
         {showAI && (
             <AIChatBox note={note} />
         )}
