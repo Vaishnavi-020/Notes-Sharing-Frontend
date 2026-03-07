@@ -8,6 +8,7 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Dashbaord from './pages/Dashbaord'
 import MyNotes from './pages/MyNotes'
+import NoteDetail from './pages/NoteDetail'
 import UploadNote from './pages/UploadNote'
 import Footer from './components/Footer'
 
@@ -29,6 +30,7 @@ function App() {
             <Route path="/Login" element={<Login />} />
             <Route path="/Dashboard" element={<Dashbaord />} />
             <Route path="/My_Notes" element={<MyNotes />} />
+            <Route path="/notes/:id" element={<NoteDetail />} />
             <Route path="/notes_upload" element={<UploadNote />} />
             </Routes>
           </div>

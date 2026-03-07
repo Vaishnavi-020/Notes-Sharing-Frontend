@@ -16,14 +16,14 @@ const MyNotes=()=>{
 
     const LIMIT=10
 
-    const onDelete=async(id)=>{
-            try{
-                await api.delete(`/notes/${id}`)
-                setNotes((prev)=>prev.filter((note)=>note.id!==id))
-            }catch(err){
-                console.error(err)
-            }
-        }
+    // const onDelete=async(id)=>{
+    //         try{
+    //             await api.delete(`/notes/${id}`)
+    //             setNotes((prev)=>prev.filter((note)=>note.id!==id))
+    //         }catch(err){
+    //             console.error(err)
+    //         }
+    //     }
 
     useEffect(()=>{
         if (!authLoading && !user){
@@ -88,11 +88,11 @@ const MyNotes=()=>{
             {!loading && notes.length===0 && <p>No notes found!</p>}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {notes.map((note)=>(
-                    <PvtNoteCard key={note.id} note={note} onDelete={onDelete} />
+                    <PvtNoteCard key={note.id} note={note} />
                 ))}
             </div>
             </div>
-            <div className="flex justify-center gap-3 mt-6">
+            <div className="flex justify-center items-center gap-3 mt-6">
                 <button 
                 disabled={page===1}
                 onClick={()=>setPage((p)=> p-1)}
