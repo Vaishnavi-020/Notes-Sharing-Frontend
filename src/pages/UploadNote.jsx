@@ -65,7 +65,7 @@ const UploadNote=()=>{
             }
             setMessage("✅ Note uploaded successfully")
             setTimeout(() => {
-            navigate("/My_Notes")
+            navigate("/my_notes")
             }, 800)
             setTitle("")
             setDescription("")
