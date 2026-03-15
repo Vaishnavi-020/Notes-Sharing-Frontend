@@ -90,7 +90,7 @@ const PvtNoteDetails=()=>{
       </p>
 
       <p className="text-sm text-gray-500 mb-5">
-        Created at: {new Date(note.created_at).toLocaleDateString()}
+        Created on: {new Date(note.created_at).toLocaleDateString()}
       </p>
 
         <button

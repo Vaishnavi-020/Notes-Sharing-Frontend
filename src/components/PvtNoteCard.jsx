@@ -11,7 +11,7 @@ const PvtNoteCard=({note})=>{
             <p className="font-semibold text-sm text-gray-500 mb-4">Subject: {note.subject}</p>
             <p className="font-semibold text-sm text-gray-600 mt-2 line-clamp-2">Description: {note.description}</p>
             <p className="text-xs text-gray-500 mt-4">
-                Created at: {new Date(note.created_at).toLocaleDateString(undefined, {
+                Created on: {new Date(note.created_at).toLocaleDateString(undefined, {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric'
