@@ -7,7 +7,6 @@ import Navbar from './components/Navbar'
 import PublicNotes from './pages/PublicNotes'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
-import Dashbaord from './pages/Dashbaord'
 import MyNotes from './pages/MyNotes'
 import PublicNoteDetails from './pages/PublicNoteDetails'
 import PvtNoteDetails from './pages/PvtNoteDetails'
@@ -33,7 +32,6 @@ function App() {
             <Route path="/public-notes/:id" element={<PublicNoteDetails />} />
 
             <Route element={<PrivateRoute isAuthenticated={isAuthenticated} />}>
-            <Route path="/dashboard" element={<Dashbaord />} />
             <Route path="/my_notes" element={<MyNotes />} />
              <Route path="/notes_upload" element={<UploadNote />} />
              <Route path="/notes/:id" element={<PvtNoteDetails />} />

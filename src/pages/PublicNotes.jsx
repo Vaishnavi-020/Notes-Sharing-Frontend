@@ -6,7 +6,6 @@ import { useAuth } from "../context/AuthContext"
 const PublicNotes=()=>{
 
     const {user,isAuthenticated}=useAuth()
-
     const [notes,setNotes]=useState([])
     const[loading,setLoading]=useState(false)
     const[query,setQuery]=useState("")
@@ -63,7 +62,6 @@ const PublicNotes=()=>{
       
       <h2 className="text-xl font-semibold mb-4">Public Notes</h2>
 
-      {/* 🔍 Search */}
       <div className="flex gap-2 mb-6">
         <input
           type="text"
@@ -80,13 +78,10 @@ const PublicNotes=()=>{
         </button>
       </div>
 
-      {/* ⏳ Loading */}
       {loading && <p>Loading notes...</p>}
 
-      {/* ❌ Empty */}
       {!loading && notes.length === 0 && <p>No notes found.</p>}
 
-      {/* 📚 Notes grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {notes.map((note) => (
           <NoteCard key={note.id} note={note} />
@@ -94,7 +89,6 @@ const PublicNotes=()=>{
       </div>
       </div>
 
-      {/* 📄 Pagination */}
       <div className="flex justify-center gap-3 mt-6">
         <button
           disabled={page === 1}

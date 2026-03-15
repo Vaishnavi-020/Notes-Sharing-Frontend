@@ -25,7 +25,7 @@ const UploadNote=()=>{
     }
 
     if (!user) {
-    return null; // redirect will happen via useEffect
+    return null;
     }
 
     const handleSubmit=async(e)=>{

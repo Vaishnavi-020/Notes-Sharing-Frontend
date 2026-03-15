@@ -1,4 +1,4 @@
-import { Link, useNavigate, useSearchParams } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
 import { getErrorMessage } from "../utils/errorHandler";
