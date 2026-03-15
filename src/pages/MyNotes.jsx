@@ -16,15 +16,6 @@ const MyNotes=()=>{
 
     const LIMIT=10
 
-    // const onDelete=async(id)=>{
-    //         try{
-    //             await api.delete(`/notes/${id}`)
-    //             setNotes((prev)=>prev.filter((note)=>note.id!==id))
-    //         }catch(err){
-    //             console.error(err)
-    //         }
-    //     }
-
     useEffect(()=>{
         if (!authLoading && !user){
             navigate("/login")

@@ -10,7 +10,7 @@ const PublicNoteDetails=()=>{
 
     const handleOpen=()=>{
         window.open(
-            `http://127.0.0.1:8000/notes/${id}/download`,
+            `${import.meta.env.VITE_API_URL}/notes/${id}/download`,
             "_blank"
         )
     }

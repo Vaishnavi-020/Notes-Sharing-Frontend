@@ -12,27 +12,47 @@ const PvtNoteDetails=()=>{
     const [showAI,setShowAI]=useState(false)
     const [showConfirm,setShowConfirm]=useState(false)
     const [showForm,setShowForm]=useState(false)
+    const[error,setError]=useState("")
 
     const navigate=useNavigate()
 
-    const handleOpen=()=>{
-        window.open(
-            `http://127.0.0.1:8000/notes/${note.id}/download`,
-            "_blank"
-        )
-    }
+    const handleOpen = async (noteId) => {
+  try {
+    const res = await api.get(`/notes/${noteId}/download`, {
+      responseType: "blob"
+    })
 
+    const url = window.URL.createObjectURL(res.data)
+
+    const a = document.createElement("a")
+    a.href = url
+    a.download = "note.pdf"
+    a.click()
+
+  } catch (err) {
+    console.error(err)
+  }
+}
+    
     useEffect(()=>{
         const fetchNote=async()=>{
             try{
                 const res=await api.get(`/notes/${id}`)
                 setNote(res.data)
             }catch(err){
-                console.error("Error fetching note",err)
+                if (err.response?.status===404){
+                    setError("Note not found")
+                }else if(err.response?.status===403){
+                    setError("You are not allowed to view this note")
+                }else{
+                    setError("Something went wrong")
+                }
             }
         }
         fetchNote()
     },[id])
+
+    if (error) return <p className="min-h-screen text-5xl p-10 text-stone-600">{error}</p>
 
     if (!note) return <div className="min-h-screen">Loading...</div>
 
@@ -58,7 +78,7 @@ const PvtNoteDetails=()=>{
     return (
         <>
         <div className="min-h-screen max-w-xl mx-auto px-19 py-10 shadow-lg rounded my-25 border flex flex-col justify-between">
-
+        
       <h3 className="text-5xl font-bold mb-4 capitalize">{note.title}</h3>
 
       <p className="text-gray-500 font-semibold text-lg mt-4 mb-4">
@@ -74,7 +94,7 @@ const PvtNoteDetails=()=>{
       </p>
 
         <button
-        onClick={handleOpen}
+        onClick={() => handleOpen(note.id)}
         className="mt-2 mb-8 px-3 py-1 bg-gradient-to-br from-indigo-400 to-violet-700 text-stone-100 rounded hover:cursor-pointer"
         >
             Open / Download

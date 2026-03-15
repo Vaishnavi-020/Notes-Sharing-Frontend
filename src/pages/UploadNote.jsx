@@ -50,9 +50,7 @@ const UploadNote=()=>{
             formData.append("file",file)
 
             const token=localStorage.getItem("access_token")
-            console.log("TOKEN:", token)
-
-            const res=await fetch("http://localhost:8000/notes/upload",{
+            const res=await fetch(`${import.meta.env.VITE_API_URL}/notes/upload`,{
                 method:"POST",
                 headers:{
                     Authorization:  `Bearer ${token}`
